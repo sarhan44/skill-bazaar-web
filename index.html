@@ -183,7 +183,7 @@
             <a href="#home"><img src="images/logo.png" alt="SKILL BAZAAR" class="h-6 md:h-8 hover-scale" /></a>
         </div>
         <a id="navLink" href="https://www.linkedin.com/company/skillbazaar" target="_blank"
-            class="absolute top-6 right-6 z-10 inline-flex items-center space-x-2 bg-green-500 text-white px-5 py-2 rounded-full text-base font-semibold shadow-lg hover:bg-green-600 transition hover-scale">
+            class="absolute top-6 right-6 z-10 inline-flex items-center space-x-2 border-2 border-black text-black px-5 py-2 rounded-lg text-base font-semibold shadow-lg hover:bg-black hover:text-white transition hover-scale">
             <span>Build with us, Build for impact</span>
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path
@@ -197,7 +197,7 @@
         class="relative flex flex-col min-h-screen w-full justify-center items-center gradient-bg overflow-hidden px-0 md:px-0 z-0">
         <!-- Build with us button in top-right -->
         <a id="linkdinLink" href="https://www.linkedin.com/company/skillbazaar" target="_blank"
-            class="absolute top-6 right-6 z-10 inline-flex items-center space-x-2 bg-green-500 text-white px-5 py-2 rounded-full text-base font-semibold shadow-lg hover:bg-green-600 transition hover-scale">
+            class="absolute top-6 right-6 z-10 inline-flex items-center space-x-2 border-2 border-black text-black px-5 py-2 rounded-lg text-base font-semibold shadow-lg hover:bg-black hover:text-white transition hover-scale">
             <span>Build with us, Build for impact</span>
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path
@@ -210,12 +210,12 @@
             <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6">
                 Launching Soon.
             </h1>
-            <p class="text-lg md:text-xl text-gray-700 mb-6">Skill Bazaar is an early-stage platform on a mission to
-                revolutionize India's gig economy.</p>
-            <p class="text-md md:text-lg text-gray-600 mb-8 italic">"A simplified, India-first freelancing platform
-                connecting verified Indian freelancers with global clientele — safe, fast, fair."</p>
+            <!-- <p class="text-lg md:text-xl text-gray-700 mb-6">Skill Bazaar is an early-stage platform on a mission to
+                revolutionize India's gig economy.</p> -->
+            <p class="text-lg md:text-xl text-gray-600 mb-8">A simplified, India-first freelancing platform
+                connecting verified Indian freelancers with global clientele.</p>
             <a href="#waitlist"
-                class="inline-flex items-center gap-2 bg-green-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-green-600 transition hover-scale shadow-lg">
+                class="inline-flex items-center gap-2 bg-black text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-black hover:text-white transition hover-scale shadow-lg">
                 Join Waitlist
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"
@@ -226,7 +226,7 @@
             </a>
             <!-- Build with us button (shown only on mobile) -->
             <a href="https://www.linkedin.com/company/skillbazaar" target="_blank"
-                class="md:hidden mt-6 inline-flex items-center space-x-2 bg-green-500 text-white px-5 py-2 rounded-full text-base font-semibold shadow-lg hover:bg-green-600 transition hover-scale">
+                class="md:hidden mt-6 inline-flex items-center space-x-2 border-2 border-black text-black px-5 py-2 rounded-lg text-base font-semibold shadow-lg hover:bg-black-100 transition hover-scale">
                 <span>Build with us, Build for impact</span>
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path
@@ -261,7 +261,7 @@
     <!-- Join Waitlist -->
     <section id="waitlist" class="bg-green-50 py-12 md:py-20 px-4 md:px-6">
         <div class="max-w-xl mx-auto text-center">
-            <h3 class="text-3xl md:text-4xl font-bold text-green-500 mb-4 md:mb-8">Join the Waitlist</h3>
+            <h3 class="text-3xl md:text-4xl font-bold text-black mb-4 md:mb-8">Join the Waitlist</h3>
             <p class="text-base md:text-lg text-gray-600 mb-6 md:mb-10">Be the first to try Skill Bazaar and get early
                 access.</p>
             <form class="space-y-4 md:space-y-6" id="waitlistForm" onsubmit="submitWaitlist(event)">
@@ -279,8 +279,9 @@
                 <textarea name="message" placeholder="Message (Optional)"
                     class="w-full px-4 md:px-5 py-3 md:py-4 border rounded-lg text-base md:text-lg input-focus"></textarea>
                 <button type="submit"
-                    class="bg-green-500 text-white px-6 py-3 md:py-4 rounded-full text-base md:text-lg font-semibold hover:bg-green-600 w-full transition hover-scale">Join
-                    Now</button>
+                    class="text-white bg-black border border-black px-6 py-3 md:py-4 rounded-lg text-base md:text-lg font-semibold hover:bg-black hover:text-white w-full transition hover-scale">
+                    Join Now
+                </button>
             </form>
             <div id="formStatus" class="mt-4 text-sm"></div>
         </div>
