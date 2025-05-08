@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SkillBazaar - India's Premier Freelancing Platform | Hire Skilled Professionals On Demand</title>
+    <title>Skill Bazaar - India's Premier Freelancing Platform | Hire Skilled Professionals On Demand</title>
     <meta name="author" content="SkillBazaar" />
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
@@ -257,7 +257,6 @@
             </div>
         </div>
     </section>
-
     <!-- Join Waitlist -->
     <section id="waitlist" class="bg-green-50 py-12 md:py-20 px-4 md:px-6">
         <div class="max-w-xl mx-auto text-center">
@@ -265,12 +264,18 @@
             <p class="text-base md:text-lg text-gray-600 mb-6 md:mb-10">Be the first to try Skill Bazaar and get early
                 access.</p>
             <form class="space-y-4 md:space-y-6" id="waitlistForm" onsubmit="submitWaitlist(event)">
-                <input type="text" name="fullName" placeholder="Full Name"
-                    class="w-full px-4 md:px-5 py-3 md:py-4 border rounded-lg text-base md:text-lg input-focus"
-                    required />
-                <input type="email" name="email" placeholder="Email Address"
-                    class="w-full px-4 md:px-5 py-3 md:py-4 border rounded-lg text-base md:text-lg input-focus"
-                    required />
+                <div>
+                    <input type="text" name="fullName" placeholder="Full Name*"
+                        class="w-full px-4 md:px-5 py-3 md:py-4 border rounded-lg text-base md:text-lg input-focus"
+                        />
+                    <p class="text-red-500 text-xs mt-1 hidden text-left" id="nameError">Please enter your full name</p>
+                </div>
+                <div>
+                    <input type="email" name="email" placeholder="Email Address*"
+                        class="w-full px-4 md:px-5 py-3 md:py-4 border rounded-lg text-base md:text-lg input-focus"
+                        />
+                    <p class="text-red-500 text-xs mt-1 hidden text-left" id="emailError">Please enter a valid email address</p>
+                </div>
                 <select name="userType"
                     class="w-full px-4 md:px-5 py-3 md:py-4 border rounded-lg text-base md:text-lg input-focus">
                     <option value="Freelancer">I'm a Freelancer</option>
@@ -329,12 +334,48 @@
             }
         });
 
+        // Form validation
+        const waitlistForm = document.getElementById('waitlistForm');
+        const nameInput = waitlistForm.querySelector('input[name="fullName"]');
+        const emailInput = waitlistForm.querySelector('input[name="email"]');
+        const nameError = document.getElementById('nameError');
+        const emailError = document.getElementById('emailError');
+
+        nameInput.addEventListener('input', () => {
+            if (nameInput.value.trim() === '') {
+                nameError.classList.remove('hidden');
+            } else {
+                nameError.classList.add('hidden');
+            }
+        });
+
+        emailInput.addEventListener('input', () => {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                emailError.classList.remove('hidden');
+            } else {
+                emailError.classList.add('hidden');
+            }
+        });
+
         // Rest of your existing JavaScript
         async function submitWaitlist(event) {
             event.preventDefault();
             const form = event.target;
             const formStatus = document.getElementById('formStatus');
             const submitButton = form.querySelector('button[type="submit"]');
+
+            // Validate inputs before submission
+            if (nameInput.value.trim() === '') {
+                nameError.classList.remove('hidden');
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                emailError.classList.remove('hidden');
+                return;
+            }
 
             submitButton.disabled = true;
             submitButton.innerHTML = 'Submitting...';
