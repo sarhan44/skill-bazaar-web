@@ -276,6 +276,11 @@
                         />
                     <p class="text-red-500 text-xs mt-1 hidden text-left" id="emailError">Please enter a valid email address</p>
                 </div>
+                <div>
+                    <input type="tel" name="phone" placeholder="Phone Number (Optional)"
+                        class="w-full px-4 md:px-5 py-3 md:py-4 border rounded-lg text-base md:text-lg input-focus"
+                        />
+                </div>
                 <select name="userType"
                     class="w-full px-4 md:px-5 py-3 md:py-4 border rounded-lg text-base md:text-lg input-focus">
                     <option value="Freelancer">I'm a Freelancer</option>
@@ -387,11 +392,12 @@
                     fullName: formData.get('fullName'),
                     email: formData.get('email'),
                     userType: formData.get('userType'),
+                    phone: formData.get('phone'),
                     message: formData.get('message'),
                     timestamp: new Date().toISOString()
                 };
 
-                const response = await fetch('https://script.google.com/macros/s/AKfycbyhovzJY4vZE8mrsxDUZdNRvq0NtoZLe3rjtJlkZhvJDsj8F8uwrQM6Pb3Vf5X_kgh3/exec', {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbxBYLQVofGg4MzROzRj1ZryeT68XolhVE-kG4Tp4BTU7M-sh1BZBhEl-FvtSeuF9Qst/exec', {
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
