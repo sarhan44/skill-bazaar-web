@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Skill Bazaar - India’s Freelance Platform — No Commissions. No Paid Connects.</title>
+    <title>Skill Bazaar - India's Freelance Platform — No Commissions. No Paid Connects.</title>
     <meta name="author" content="SkillBazaar" />
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
@@ -215,7 +215,7 @@
         <div class="flex flex-col items-center justify-center w-full mx-auto text-center p-4">
             <img src="images/logo.png" alt="Skill Bazaar" class="h-12 md:h-14 mb-6 mx-auto" />
             <h4 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                India’s freelance platform — No commissions. No paid connects.
+                India's freelance platform — No commissions. No paid connects.
             </h4>
             <p class="text-sm md:text-xl text-gray-600 mb-8">A freelancing platform made for India. Connecting verified Indian freelancers with global clientele.</p>
             <a href="#waitlist"
@@ -284,6 +284,7 @@
                     <input type="tel" name="phone" placeholder="Phone Number (Optional)"
                         class="w-full px-4 md:px-5 py-3 md:py-4 border rounded-lg text-base md:text-lg input-focus"
                         />
+                    <p class="text-red-500 text-xs mt-1 hidden text-left" id="phoneError">Please enter a valid phone number (numbers only)</p>
                 </div>
                 <select name="userType"
                     class="w-full px-4 md:px-5 py-3 md:py-4 border rounded-lg text-base md:text-lg input-focus">
@@ -349,6 +350,8 @@
         const emailInput = waitlistForm.querySelector('input[name="email"]');
         const nameError = document.getElementById('nameError');
         const emailError = document.getElementById('emailError');
+        const phoneInput = waitlistForm.querySelector('input[name="phone"]');
+        const phoneError = document.getElementById('phoneError');
 
         nameInput.addEventListener('input', () => {
             if (nameInput.value.trim() === '') {
@@ -364,6 +367,16 @@
                 emailError.classList.remove('hidden');
             } else {
                 emailError.classList.add('hidden');
+            }
+        });
+
+        // Phone input: allow only numbers
+        phoneInput.addEventListener('input', (e) => {
+            phoneInput.value = phoneInput.value.replace(/[^0-9]/g, '');
+            if (phoneInput.value !== '' && !/^\d+$/.test(phoneInput.value)) {
+                phoneError.classList.remove('hidden');
+            } else {
+                phoneError.classList.add('hidden');
             }
         });
 
@@ -386,6 +399,11 @@
                 return;
             }
 
+            if (phoneInput.value !== '' && !/^\d+$/.test(phoneInput.value)) {
+                phoneError.classList.remove('hidden');
+                return;
+            }
+
             submitButton.disabled = true;
             submitButton.innerHTML = 'Submitting...';
             formStatus.innerHTML = '';
@@ -401,13 +419,12 @@
                     timestamp: new Date().toISOString()
                 };
 
-                const response = await fetch('https://script.google.com/macros/s/AKfycbxBYLQVofGg4MzROzRj1ZryeT68XolhVE-kG4Tp4BTU7M-sh1BZBhEl-FvtSeuF9Qst/exec', {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbwZtv70Xmy2CmuWZ8PLjyd6VeuhO-jzwplsj7dmeYWPvrYbr5sRyOk77gcyWxxWGEvZ/exec', {
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    mode: 'no-cors'
                 });
 
                 formStatus.innerHTML = '<p class="text-green-500">Thank you for joining our waitlist! We\'ll be in touch soon.</p>';
