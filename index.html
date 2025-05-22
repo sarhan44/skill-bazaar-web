@@ -419,12 +419,13 @@
                     timestamp: new Date().toISOString()
                 };
 
-                const response = await fetch('https://script.google.com/macros/s/AKfycbyHa5fR_kyM1V-JrIK_PrVdB6-EoKPGz9oNr087YXOfd9VLhIqN7igSqY2b7zWkkv3b/exec', {
+                const response = await fetch('https://script.google.com/macros/s/AKfycby8T33VPAdqATcQaxhtNcCtdfs8_JLCGS13kFxzwD-OP7nWG4mIrTQqL8cR23ntjGTB/exec', {
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
                         'Content-Type': 'application/json'
-                    }
+                    },
+                    mode: 'no-cors'
                 });
 
                 formStatus.innerHTML = '<p class="text-green-500">Thank you for joining our waitlist! We\'ll be in touch soon.</p>';
