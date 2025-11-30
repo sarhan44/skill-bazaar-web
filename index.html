@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 
 <head>
     <meta charset="UTF-8" />
@@ -9,7 +9,8 @@
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
     <meta name="bingbot" content="index, follow" />
-    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="https://skillbazaar-assets.s3.ap-south-1.amazonaws.com/favicon.ico" />
     <meta name="description"
         content="Skill Bazaar is India's commission-free, trusted freelance platform. Connecting verified Indian freelancers with global clients. Find top talent in IT, design, marketing and more." />
     <meta name="keywords"
@@ -20,7 +21,7 @@
     <meta property="og:title" content="SkillBazaar - India's Premier Freelancing Platform" />
     <meta property="og:description"
         content="Skill Bazaar is India's commission-free, trusted freelance platform. Connecting verified Indian freelancers with global clients. Find top talent in IT, design, marketing and more." />
-    <meta property="og:image" content="./images/logo.png" />
+    <meta property="og:image" content="https://skillbazaar-assets.s3.ap-south-1.amazonaws.com/logo.png" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -28,7 +29,7 @@
     <meta property="twitter:title" content="SkillBazaar - India's Premier Freelancing Platform" />
     <meta property="twitter:description"
         content="Skill Bazaar is India's commission-free, trusted freelance platform. Connecting verified Indian freelancers with global clients. Find top talent in IT, design, marketing and more." />
-    <meta property="twitter:image" content="./images/logo.png" />
+    <meta property="twitter:image" content="https://skillbazaar-assets.s3.ap-south-1.amazonaws.com/logo.png" />
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://www.skillbazaar.in/" />
@@ -36,7 +37,8 @@
     <!-- Preconnect to external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E4JG5TGG4E"></script>
     <script>
@@ -53,7 +55,7 @@
       "@type": "Organization",
       "name": "SkillBazaar",
       "url": "https://www.skillbazaar.in",
-      "logo": "https://www.skillbazaar.in/images/logo.png",
+      "logo": "https://skillbazaar-assets.s3.ap-south-1.amazonaws.com/logo.png",
       "description": "Skill Bazaar is India's commission-free, trusted freelance platform. Connecting verified Indian freelancers with global clients. Find top talent in IT, design, marketing and more",
       "sameAs": [
         "https://www.linkedin.com/company/skillbazaar",
@@ -68,16 +70,21 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
+                        sans: ['Outfit', 'sans-serif'],
                     },
                     colors: {
                         green: {
-                            500: '#16A34A'
+                            500: '#16A34A',
+                            400: '#4ade80'
+                        },
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#171717',
+                            700: '#262626'
                         }
                     },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         float: {
@@ -90,353 +97,848 @@
         }
     </script>
     <style>
-        html {
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+        :root {
+            --cursor-size: 20px;
+            --cursor-hover-size: 60px;
+        }
+
+        body {
+            margin: 0;
+            overflow-x: hidden;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            cursor: none;
+            font-family: "Inter", sans-serif;
             scroll-behavior: smooth;
+            /* Hide default cursor */
         }
 
-        body,
-        input,
-        textarea,
-        select,
-        button {
-            font-family: 'Poppins', sans-serif;
+        /* Custom Cursor */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
         }
 
-        #mainNavbar {
-            display: none;
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #4ade80;
         }
 
-        .gradient-bg {
-            background: linear-gradient(120deg, #f0fdf4, #dcfce7, #fce7f3, #e0e7ff, #f0fdf4);
-            background-size: 400% 400%;
-            animation: gradient-hero 16s ease-in-out infinite;
+        .cursor-outline {
+            width: var(--cursor-size);
+            height: var(--cursor-size);
+            border: 1px solid rgba(74, 222, 128, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
         }
 
-        @keyframes gradient-hero {
-            0% {
-                background-position: 0% 50%;
+        body:hover .cursor-outline.hovered {
+            width: var(--cursor-hover-size);
+            height: var(--cursor-hover-size);
+            background-color: rgba(74, 222, 128, 0.1);
+            border-color: transparent;
+            backdrop-filter: blur(2px);
+        }
+
+        /* 3D Canvas */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-header {
+            background: transparent;
+            backdrop-filter: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .glass-header.scrolled {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Text Gradients */
+        .text-gradient {
+            background: linear-gradient(to right, #ffffff, #4ade80);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-green {
+            background: linear-gradient(to right, #4ade80, #22c55e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hero Background Animations */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float-orb 20s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #4ade80, #16A34A);
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .hero-orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #22c55e, #15803d);
+            bottom: -5%;
+            right: -5%;
+            animation-delay: 7s;
+        }
+
+
+
+        @keyframes float-orb {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+        }
+
+        /* Floating Shapes */
+        .floating-shape {
+            position: absolute;
+            border: 2px solid rgba(74, 222, 128, 0.2);
+            animation: float-shape 15s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+            transform: rotate(45deg);
+        }
+
+        .shape-2 {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            top: 60%;
+            left: 15%;
+            animation-delay: 3s;
+        }
+
+        .shape-3 {
+            width: 120px;
+            height: 120px;
+            border-radius: 30px;
+            top: 25%;
+            right: 15%;
+            animation-delay: 6s;
+            transform: rotate(-30deg);
+        }
+
+        .shape-4 {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 9s;
+        }
+
+        .shape-5 {
+            width: 90px;
+            height: 90px;
+            border-radius: 15px;
+            top: 70%;
+            right: 25%;
+            animation-delay: 12s;
+            transform: rotate(60deg);
+        }
+
+        .shape-6 {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            top: 40%;
+            left: 5%;
+            animation-delay: 15s;
+        }
+
+        @keyframes float-shape {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.3;
             }
 
             25% {
-                background-position: 50% 100%;
+                transform: translateY(-30px) rotate(90deg);
+                opacity: 0.5;
             }
 
             50% {
-                background-position: 100% 50%;
+                transform: translateY(-60px) rotate(180deg);
+                opacity: 0.3;
             }
 
             75% {
-                background-position: 50% 0%;
-            }
-
-            100% {
-                background-position: 0% 50%;
+                transform: translateY(-30px) rotate(270deg);
+                opacity: 0.5;
             }
         }
 
-        .hover-scale {
-            transition: transform 0.3s ease;
+        /* Lenis Smooth Scroll */
+        html.lenis {
+            height: auto;
         }
 
-        .hover-scale:hover {
-            transform: scale(1.05);
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
         }
 
-        .card-hover {
-            transition: all 0.3s ease;
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
         }
 
-        .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        .lenis.lenis-stopped {
+            overflow: hidden;
         }
 
-        .input-focus {
-            transition: all 0.3s ease;
-        }
-
-        .input-focus:focus {
-            transform: scale(1.02);
-            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
-        }
-
-        .scroll-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .scroll-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: #16A34A;
-            transition: width 0.3s ease;
-        }
-
-        .scroll-link:hover::after {
-            width: 100%;
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
         }
     </style>
 </head>
 
-<body class="bg-white text-gray-800 font-sans">
+<body class="antialiased selection:bg-green-500 selection:text-white">
+
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- 3D Background -->
+    <div id="canvas-container"></div>
+
     <!-- Header -->
-    <header id="mainNavbar"
-        class="flex justify-between items-center p-4 md:p-6 border-b shadow-sm sticky top-0 bg-white/80 backdrop-blur-sm z-50 transition-all duration-300 invisible opacity-0 pointer-events-none">
-        <div class="flex items-center space-x-2">
-            <a href="#home"><img src="images/logo.png" alt="SKILL BAZAAR" class="h-6 md:h-8 hover-scale" /></a>
+    <header id="mainNavbar" class="fixed w-full top-0 z-50 transition-all duration-300 glass-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#home" class="hoverable">
+                        <img src="https://skillbazaar-assets.s3.ap-south-1.amazonaws.com/logo.png" alt="SKILL BAZAAR"
+                            class="h-8 md:h-10 brightness-0 invert" />
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <a href="https://www.linkedin.com/company/skillbazaar" target="_blank"
+                        class="hoverable inline-flex items-center space-x-2 border border-white/20 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-white hover:text-black transition-all duration-300">
+                        <span>Build with us, Build for impact</span>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
         </div>
-        <a id="navLink" href="https://www.linkedin.com/company/skillbazaar" target="_blank"
-            class="absolute top-6 right-6 z-10 inline-flex items-center space-x-2 border-2 border-black text-black px-5 py-2 rounded-lg text-base font-semibold shadow-lg hover:bg-black hover:text-white transition hover-scale">
-            <span>Build with us, Build for impact</span>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-            </svg>
-        </a>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home"
-        class="relative flex flex-col min-h-screen w-full justify-center items-center gradient-bg overflow-hidden px-0 md:px-0 z-0">
-        <!-- Build with us button in top-right -->
-        <a id="linkdinLink" href="https://www.linkedin.com/company/skillbazaar" target="_blank"
-            class="absolute top-6 right-6 z-10 inline-flex items-center space-x-2 border-2 border-black text-black px-5 py-2 rounded-lg text-base font-semibold shadow-lg hover:bg-black hover:text-white transition hover-scale">
-            <span>Build with us, Build for impact</span>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-            </svg>
-        </a>
-        <!-- Centered content -->
-        <div class="flex flex-col items-center justify-center w-full mx-auto text-center p-4">
-            <img src="images/logo.png" alt="Skill Bazaar" class="h-12 md:h-14 mb-6 mx-auto" />
-            <h4 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                India's freelance platform — No commissions. No paid connects.
-            </h4>
-            <p class="text-sm md:text-xl text-gray-600 mb-8">A freelancing platform made for India. Connecting verified Indian freelancers with global clientele.</p>
-            <a href="#waitlist"
-                class="inline-flex items-center gap-2 bg-black text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-black hover:text-white transition hover-scale shadow-lg">
-                Join Waitlist
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"
-                        stroke="currentColor" stroke-width="2" fill="none" />
-                    <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" fill="none" />
-                </svg>
-            </a>
-            <!-- Build with us button (shown only on mobile) -->
-            <a href="https://www.linkedin.com/company/skillbazaar" target="_blank"
-                class="md:hidden mt-6 inline-flex items-center space-x-2 border-2 border-black text-black px-5 py-2 rounded-lg text-base font-semibold shadow-lg hover:bg-black-100 transition hover-scale">
-                <span>Build with us, Build for impact</span>
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-            </a>
-        </div>
-        <!-- Animated background (already present via .gradient-bg) -->
-    </section>
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+            <!-- Animated Background Elements -->
+            <div class="absolute inset-0 overflow-hidden">
+                <!-- Gradient Orbs -->
+                <div class="hero-orb hero-orb-1"></div>
+                <div class="hero-orb hero-orb-2"></div>
 
-    <!-- How It Works -->
-    <section id="how" class="py-12 md:py-20 px-4 md:px-6 max-w-6xl mx-auto">
-        <h3 class="text-3xl md:text-4xl font-semibold text-center mb-12 md:mb-16 text-gray-900">Hire in 10 minutes.</h3>
-        <div
-            class="flex flex-col md:flex-row items-start md:items-stretch justify-center md:divide-x md:divide-gray-200">
-            <div class="flex-1 px-0 md:px-8 mb-10 md:mb-0 text-center">
-                <h4 class="text-xl md:text-2xl font-semibold mb-2">Browse Ready-to-Hire Services</h4>
-                <p class="text-base md:text-lg text-gray-600">Explore ready-to-hire services across categories like IT,
-                    Design, Marketing and more</p>
+
+                <!-- Floating Shapes -->
+                <div class="floating-shape shape-1"></div>
+                <div class="floating-shape shape-2"></div>
+                <div class="floating-shape shape-3"></div>
+                <div class="floating-shape shape-4"></div>
+                <div class="floating-shape shape-5"></div>
+                <div class="floating-shape shape-6"></div>
             </div>
-            <div class="flex-1 px-0 md:px-8 mb-10 md:mb-0 text-center">
-                <h4 class="text-xl md:text-2xl font-semibold mb-2">Connect with a Skillpreneur</h4>
-                <p class="text-base md:text-lg text-gray-600">Discuss, finalize requirements, and get work started.</p>
+
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="gsap-hero-anim text-5xl sm:text-6xl md:text-8xl font-bold tracking-tight mb-4">
+                    Hire <span class="text-gradient-green">skills</span> on demand
+                </h1>
+
+                <h2
+                    class="gsap-hero-anim text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight mb-8 text-gray-300">
+                    India's freelance platform<br />
+                    <span class="text-gradient-green">No commissions. No paid connects.</span>
+                </h2>
+
+                <p
+                    class="gsap-hero-anim text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+                    A freelancing platform made for India. Connecting verified Indian freelancers with global clientele.
+                </p>
+
+                <div class="gsap-hero-anim flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#waitlist"
+                        class="hoverable group relative inline-flex items-center justify-center px-10 py-5 text-lg font-bold text-black transition-all duration-300 bg-green-400 font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/50">
+                        Join Waitlist
+                        <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                        <div
+                            class="absolute -inset-3 rounded-full bg-green-400 opacity-30 group-hover:opacity-50 blur-xl transition duration-300">
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Mobile Build with us button -->
+                <div class="gsap-hero-anim mt-8 md:hidden">
+                    <a href="https://www.linkedin.com/company/skillbazaar" target="_blank"
+                        class="hoverable inline-flex items-center space-x-2 border border-white/20 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-white/10 transition-all">
+                        <span>Build with us</span>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                    </a>
+                </div>
             </div>
-            <div class="flex-1 px-0 md:px-8 text-center">
-                <h4 class="text-xl md:text-2xl font-semibold mb-2">Payment on your terms</h4>
-                <p class="text-base md:text-lg text-gray-600">Set payment terms and pay securely, your way.</p>
+        </section>
+
+        <!-- How It Works -->
+        <section id="how" class="py-24 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h3 class="text-3xl md:text-5xl font-bold text-center mb-20 text-white scroll-trigger-anim">
+                    Hire in <span class="text-green-400">10 minutes</span>.
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Step 1 -->
+                    <div
+                        class="hoverable glass p-8 rounded-2xl transform transition-all duration-300 hover:-translate-y-2 scroll-trigger-anim">
+                        <div
+                            class="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mb-6 text-green-400 font-bold text-xl">
+                            1</div>
+                        <h4 class="text-xl md:text-2xl font-semibold mb-4 text-white">Browse Services</h4>
+                        <p class="text-gray-400 leading-relaxed">Explore ready-to-hire services across categories like
+                            IT, Design, Marketing and more.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="hoverable glass p-8 rounded-2xl transform transition-all duration-300 hover:-translate-y-2 scroll-trigger-anim"
+                        style="transition-delay: 100ms;">
+                        <div
+                            class="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mb-6 text-green-400 font-bold text-xl">
+                            2</div>
+                        <h4 class="text-xl md:text-2xl font-semibold mb-4 text-white">Connect & Discuss</h4>
+                        <p class="text-gray-400 leading-relaxed">Connect with a Skillpreneur, discuss requirements, and
+                            get work started immediately.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="hoverable glass p-8 rounded-2xl transform transition-all duration-300 hover:-translate-y-2 scroll-trigger-anim"
+                        style="transition-delay: 200ms;">
+                        <div
+                            class="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mb-6 text-green-400 font-bold text-xl">
+                            3</div>
+                        <h4 class="text-xl md:text-2xl font-semibold mb-4 text-white">Secure Payment</h4>
+                        <p class="text-gray-400 leading-relaxed">Set payment terms and pay securely, your way. No hidden
+                            commissions.</p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
-    <!-- Join Waitlist -->
-    <section id="waitlist" class="bg-green-50 py-12 md:py-20 px-4 md:px-6">
-        <div class="max-w-xl mx-auto text-center">
-            <h3 class="text-3xl md:text-4xl font-bold text-black mb-4 md:mb-8">Join the Waitlist</h3>
-            <p class="text-base md:text-lg text-gray-600 mb-6 md:mb-10">Be the first to try Skill Bazaar and get early
-                access.</p>
-            <form class="space-y-4 md:space-y-6" id="waitlistForm" onsubmit="submitWaitlist(event)">
-                <div>
-                    <input type="text" name="fullName" placeholder="Full Name*"
-                        class="w-full px-4 md:px-5 py-3 md:py-4 border rounded-lg text-base md:text-lg input-focus"
-                        />
-                    <p class="text-red-500 text-xs mt-1 hidden text-left" id="nameError">Please enter your full name</p>
+        </section>
+
+        <!-- Join Waitlist -->
+        <section id="waitlist" class="py-24 relative z-10">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass rounded-3xl p-8 md:p-12 scroll-trigger-anim">
+                    <div class="text-center mb-10">
+                        <h3 class="text-3xl md:text-4xl font-bold text-white mb-4">Join the Waitlist</h3>
+                        <p class="text-gray-400">Be the first to try Skill Bazaar and get early access.</p>
+                    </div>
+
+                    <form id="waitlistForm" class="space-y-6">
+                        <!-- Full Name -->
+                        <div class="space-y-2">
+                            <input type="text" name="fullName" placeholder="Full Name*"
+                                class="hoverable w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all" />
+                            <p class="text-red-400 text-xs hidden" id="nameError">Please enter your full name</p>
+                        </div>
+
+                        <!-- Email Address -->
+                        <div class="space-y-2">
+                            <input type="email" name="email" placeholder="Email Address*"
+                                class="hoverable w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all" />
+                            <p class="text-red-400 text-xs hidden" id="emailError">Please enter a valid email address
+                            </p>
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="space-y-2">
+                            <input type="tel" name="phone" placeholder="Phone Number (Optional)"
+                                class="hoverable w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all" />
+                            <p class="text-red-400 text-xs hidden" id="phoneError">Numbers only please</p>
+                        </div>
+
+                        <!-- User Type -->
+                        <div>
+                            <select name="userType"
+                                class="hoverable w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all appearance-none cursor-pointer">
+                                <option value="Freelancer" class="bg-gray-900">I'm a Freelancer</option>
+                                <option value="Client" class="bg-gray-900">I'm a Client</option>
+                            </select>
+                        </div>
+
+                        <!-- Message -->
+                        <div>
+                            <textarea name="message" placeholder="Message (Optional)" rows="4"
+                                class="hoverable w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all resize-none"></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit"
+                            class="hoverable w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-green-400 transition-colors duration-300 shadow-lg shadow-green-500/20">
+                            Join Now
+                        </button>
+                        <div id="formStatus" class="text-center text-sm mt-4"></div>
+                    </form>
                 </div>
-                <div>
-                    <input type="email" name="email" placeholder="Email Address*"
-                        class="w-full px-4 md:px-5 py-3 md:py-4 border rounded-lg text-base md:text-lg input-focus"
-                        />
-                    <p class="text-red-500 text-xs mt-1 hidden text-left" id="emailError">Please enter a valid email address</p>
-                </div>
-                <div>
-                    <input type="tel" name="phone" placeholder="Phone Number (Optional)"
-                        class="w-full px-4 md:px-5 py-3 md:py-4 border rounded-lg text-base md:text-lg input-focus"
-                        />
-                    <p class="text-red-500 text-xs mt-1 hidden text-left" id="phoneError">Please enter a valid phone number (numbers only)</p>
-                </div>
-                <select name="userType"
-                    class="w-full px-4 md:px-5 py-3 md:py-4 border rounded-lg text-base md:text-lg input-focus">
-                    <option value="Freelancer">I'm a Freelancer</option>
-                    <option value="Client">I'm a Client</option>
-                </select>
-                <textarea name="message" placeholder="Message (Optional)"
-                    class="w-full px-4 md:px-5 py-3 md:py-4 border rounded-lg text-base md:text-lg input-focus"></textarea>
-                <button type="submit"
-                    class="text-white bg-black border border-black px-6 py-3 md:py-4 rounded-lg text-base md:text-lg font-semibold hover:bg-black hover:text-white w-full transition hover-scale">
-                    Join Now
-                </button>
-            </form>
-            <div id="formStatus" class="mt-4 text-sm"></div>
-        </div>
-    </section>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-black py-6 md:py-8 border-t text-center text-xs md:text-sm text-white">
+    <footer class="bg-black py-8 border-t border-white/10 text-center text-sm text-gray-500 relative z-10">
         <p>&copy; 2025 Skill Bazaar. All rights reserved.</p>
     </footer>
 
-    <script>
-        // Smooth scroll with offset for fixed header
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                const headerOffset = 80; // Adjust this value based on your header height
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.29/dist/lenis.min.js"></script>
 
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
+    <script>
+        // --- Custom Cursor ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        const hoverables = document.querySelectorAll('.hoverable');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            // Dot follows immediately
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Outline follows with slight delay (handled by CSS transition or JS animation)
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        hoverables.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.classList.add('hovered');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.classList.remove('hovered');
             });
         });
 
-        if (window.innerWidth < 768) {
-            document.getElementById('navLink').style.display = 'none';
-            document.getElementById('linkdinLink').style.display = 'none';
+        // --- Header Scroll Effect ---
+        const header = document.getElementById('mainNavbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // --- Smooth Scroll (Lenis) ---
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
         }
 
-        // Hide navbar on hero (home) section, show on scroll
-        window.addEventListener('scroll', function () {
-            const navbar = document.getElementById('mainNavbar');
-            if (window.scrollY < window.innerHeight * 0.7) {
-                document.getElementById('mainNavbar').style.display = 'none';
-                navbar.classList.add('invisible', 'opacity-0', 'pointer-events-none');
-                navbar.classList.remove('visible', 'opacity-100', 'pointer-events-auto');
-            } else {
-                document.getElementById('mainNavbar').style.display = 'block';
-                navbar.classList.remove('invisible', 'opacity-0', 'pointer-events-none');
-                navbar.classList.add('visible', 'opacity-100', 'pointer-events-auto');
+        requestAnimationFrame(raf);
+
+        // --- Anchor Link Smooth Scroll ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                lenis.scrollTo(this.getAttribute('href'));
+            });
+        });
+
+        // --- Three.js Background ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // Particles
+        const geometry = new THREE.BufferGeometry();
+        const particlesCount = 700;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for (let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 15; // Spread
+        }
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+        const material = new THREE.PointsMaterial({
+            size: 0.02,
+            color: 0x4ade80, // Green-400
+            transparent: true,
+            opacity: 0.8,
+        });
+
+        const particlesMesh = new THREE.Points(geometry, material);
+        scene.add(particlesMesh);
+
+        // Connecting Lines (optional, can be heavy)
+        // For better performance, let's stick to floating particles or a mesh
+
+        // Alternative: Geometric Mesh
+        const torusGeometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+        const torusMaterial = new THREE.MeshBasicMaterial({
+            color: 0x16A34A,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.05
+        });
+        const torus = new THREE.Mesh(torusGeometry, torusMaterial);
+        scene.add(torus);
+
+        camera.position.z = 3;
+
+        // Mouse interaction
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = event.clientX / window.innerWidth - 0.5;
+            mouseY = event.clientY / window.innerHeight - 0.5;
+        });
+
+        // Animation Loop
+        const clock = new THREE.Clock();
+
+        function animate() {
+            const elapsedTime = clock.getElapsedTime();
+
+            // Animate individual particles to float
+            const positions = particlesMesh.geometry.attributes.position.array;
+            for (let i = 0; i < particlesCount; i++) {
+                const i3 = i * 3;
+                // Create wave-like floating motion for each particle
+                positions[i3 + 1] = Math.sin(elapsedTime + positions[i3]) * 0.5;
+            }
+            particlesMesh.geometry.attributes.position.needsUpdate = true;
+
+            // Rotate particles
+            particlesMesh.rotation.y = elapsedTime * 0.05;
+            particlesMesh.rotation.x = mouseY * 0.5;
+            particlesMesh.rotation.y += mouseX * 0.5;
+
+            // Rotate Torus
+            torus.rotation.x = elapsedTime * 0.1;
+            torus.rotation.y = elapsedTime * 0.1 + mouseX;
+
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // --- GSAP Animations ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Animations
+        gsap.from(".gsap-hero-anim", {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out",
+            delay: 0.5
+        });
+
+        // Scroll Trigger Animations
+        const scrollElements = document.querySelectorAll(".scroll-trigger-anim");
+
+        scrollElements.forEach((element) => {
+            gsap.fromTo(element,
+                { y: 50, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: element,
+                        start: "top 85%", // Start when top of element hits 85% of viewport height
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        });
+
+        // Staggered Form Animation
+        gsap.from("#waitlistForm > div, #waitlistForm > button", {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#waitlistForm",
+                start: "top 80%",
+                toggleActions: "play none none reverse"
             }
         });
 
-        // Form validation
-        const waitlistForm = document.getElementById('waitlistForm');
-        const nameInput = waitlistForm.querySelector('input[name="fullName"]');
-        const emailInput = waitlistForm.querySelector('input[name="email"]');
-        const nameError = document.getElementById('nameError');
-        const emailError = document.getElementById('emailError');
-        const phoneInput = waitlistForm.querySelector('input[name="phone"]');
-        const phoneError = document.getElementById('phoneError');
-
-        nameInput.addEventListener('input', () => {
-            if (nameInput.value.trim() === '') {
-                nameError.classList.remove('hidden');
-            } else {
-                nameError.classList.add('hidden');
+        // Parallax Background Effect
+        gsap.to(".hero-orb", {
+            yPercent: 50,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "body",
+                start: "top top",
+                end: "bottom top",
+                scrub: 1
             }
         });
 
-        emailInput.addEventListener('input', () => {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(emailInput.value)) {
-                emailError.classList.remove('hidden');
-            } else {
-                emailError.classList.add('hidden');
-            }
+        gsap.utils.toArray(".floating-shape").forEach((shape, i) => {
+            const speed = (i + 1) * 20; // Different speed for each shape
+            gsap.to(shape, {
+                y: -speed,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: 1
+                }
+            });
         });
 
-        // Phone input: allow only numbers
-        phoneInput.addEventListener('input', (e) => {
-            phoneInput.value = phoneInput.value.replace(/[^0-9]/g, '');
-            if (phoneInput.value !== '' && !/^\d+$/.test(phoneInput.value)) {
-                phoneError.classList.remove('hidden');
-            } else {
-                phoneError.classList.add('hidden');
-            }
-        });
-
-        // Rest of your existing JavaScript
-        async function submitWaitlist(event) {
-            event.preventDefault();
-            const form = event.target;
-            const formStatus = document.getElementById('formStatus');
-            const submitButton = form.querySelector('button[type="submit"]');
-
-            // Validate inputs before submission
-            if (nameInput.value.trim() === '') {
-                nameError.classList.remove('hidden');
+        // --- Form Logic ---
+        (function() {
+            const waitlistForm = document.getElementById('waitlistForm');
+            
+            if (!waitlistForm) {
+                console.error('Waitlist form not found');
                 return;
             }
 
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(emailInput.value)) {
-                emailError.classList.remove('hidden');
-                return;
-            }
+            const nameInput = waitlistForm.querySelector('input[name="fullName"]');
+            const emailInput = waitlistForm.querySelector('input[name="email"]');
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const phoneInput = waitlistForm.querySelector('input[name="phone"]');
+            const phoneError = document.getElementById('phoneError');
 
-            if (phoneInput.value !== '' && !/^\d+$/.test(phoneInput.value)) {
-                phoneError.classList.remove('hidden');
-                return;
-            }
-
-            submitButton.disabled = true;
-            submitButton.innerHTML = 'Submitting...';
-            formStatus.innerHTML = '';
-
-            try {
-                const formData = new FormData(form);
-                const data = {
-                    fullName: formData.get('fullName'),
-                    email: formData.get('email'),
-                    userType: formData.get('userType'),
-                    phone: formData.get('phone'),
-                    message: formData.get('message'),
-                    timestamp: new Date().toISOString()
-                };
-
-                const response = await fetch('https://script.google.com/macros/s/AKfycby8T33VPAdqATcQaxhtNcCtdfs8_JLCGS13kFxzwD-OP7nWG4mIrTQqL8cR23ntjGTB/exec', {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    mode: 'no-cors'
+            if (nameInput && nameError) {
+                nameInput.addEventListener('input', () => {
+                    if (nameInput.value.trim() === '') {
+                        nameError.classList.remove('hidden');
+                    } else {
+                        nameError.classList.add('hidden');
+                    }
                 });
-
-                formStatus.innerHTML = '<p class="text-green-500">Thank you for joining our waitlist! We\'ll be in touch soon.</p>';
-                form.reset();
-            } catch (error) {
-                formStatus.innerHTML = '<p class="text-red-500">Sorry, there was an error submitting your information. Please try again later.</p>';
-            } finally {
-                submitButton.disabled = false;
-                submitButton.innerHTML = 'Join Now';
             }
-        }
+
+            if (emailInput && emailError) {
+                emailInput.addEventListener('input', () => {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (emailInput.value.trim() === '' || !emailRegex.test(emailInput.value)) {
+                        emailError.classList.remove('hidden');
+                    } else {
+                        emailError.classList.add('hidden');
+                    }
+                });
+            }
+
+            if (phoneInput && phoneError) {
+                phoneInput.addEventListener('input', (e) => {
+                    phoneInput.value = phoneInput.value.replace(/[^0-9]/g, '');
+                    if (phoneInput.value !== '' && !/^\d+$/.test(phoneInput.value)) {
+                        phoneError.classList.remove('hidden');
+                    } else {
+                        phoneError.classList.add('hidden');
+                    }
+                });
+            }
+
+            async function submitWaitlist(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                console.log('Form submitted');
+                
+                const form = event.target;
+                const formStatus = document.getElementById('formStatus');
+                const submitButton = form.querySelector('button[type="submit"]');
+
+                let isValid = true;
+
+                // Validate name
+                if (!nameInput || nameInput.value.trim() === '') {
+                    if (nameError) nameError.classList.remove('hidden');
+                    isValid = false;
+                } else {
+                    if (nameError) nameError.classList.add('hidden');
+                }
+
+                // Validate email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailInput || !emailRegex.test(emailInput.value)) {
+                    if (emailError) emailError.classList.remove('hidden');
+                    isValid = false;
+                } else {
+                    if (emailError) emailError.classList.add('hidden');
+                }
+
+                // Validate phone (optional)
+                if (phoneInput && phoneInput.value !== '' && !/^\d+$/.test(phoneInput.value)) {
+                    if (phoneError) phoneError.classList.remove('hidden');
+                    isValid = false;
+                } else if (phoneError) {
+                    phoneError.classList.add('hidden');
+                }
+
+                if (!isValid) {
+                    console.log('Validation failed');
+                    if (formStatus) {
+                        formStatus.innerHTML = '<p class="text-red-400">Please fill in all required fields correctly.</p>';
+                    }
+                    return false;
+                }
+
+                const originalBtnText = submitButton ? submitButton.innerText : 'Join Now';
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    submitButton.innerText = 'Submitting...';
+                }
+                if (formStatus) {
+                    formStatus.innerHTML = '';
+                }
+
+                try {
+                    const formData = new FormData(form);
+                    const data = {
+                        fullName: formData.get('fullName'),
+                        email: formData.get('email'),
+                        userType: formData.get('userType'),
+                        phone: formData.get('phone') || '',
+                        message: formData.get('message') || '',
+                        timestamp: new Date().toISOString()
+                    };
+
+                    console.log('Submitting data:', data);
+
+                    // Submit to Google Apps Script
+                    await fetch('https://script.google.com/macros/s/AKfycby8T33VPAdqATcQaxhtNcCtdfs8_JLCGS13kFxzwD-OP7nWG4mIrTQqL8cR23ntjGTB/exec', {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        mode: 'no-cors'
+                    });
+
+                    if (formStatus) {
+                        formStatus.innerHTML = '<p class="text-green-400">Thank you for joining our waitlist! We\'ll be in touch soon.</p>';
+                    }
+                    form.reset();
+                    return false;
+                } catch (error) {
+                    console.error('Form submission error:', error);
+                    if (formStatus) {
+                        formStatus.innerHTML = '<p class="text-red-400">Sorry, there was an error submitting your information. Please try again later.</p>';
+                    }
+                    return false;
+                } finally {
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.innerText = originalBtnText;
+                    }
+                }
+            }
+
+            waitlistForm.addEventListener('submit', submitWaitlist);
+        })();
     </script>
 </body>
 
