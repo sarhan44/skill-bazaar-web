@@ -109,55 +109,11 @@
             overflow-x: hidden;
             background-color: #0a0a0a;
             color: #ffffff;
-            cursor: none;
             font-family: "Inter", sans-serif;
             scroll-behavior: smooth;
-            /* Hide default cursor */
         }
 
-        /* Custom Cursor */
-        .cursor-dot,
-        .cursor-outline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: 9999;
-            pointer-events: none;
-        }
 
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #4ade80;
-        }
-
-        .cursor-outline {
-            width: var(--cursor-size);
-            height: var(--cursor-size);
-            border: 1px solid rgba(74, 222, 128, 0.5);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-
-        body:hover .cursor-outline.hovered {
-            width: var(--cursor-hover-size);
-            height: var(--cursor-hover-size);
-            background-color: rgba(74, 222, 128, 0.1);
-            border-color: transparent;
-            backdrop-filter: blur(2px);
-        }
-
-        /* 3D Canvas */
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.6;
-        }
 
         /* Glassmorphism */
         .glass {
@@ -201,7 +157,6 @@
             border-radius: 50%;
             filter: blur(80px);
             opacity: 0.3;
-            animation: float-orb 20s ease-in-out infinite;
         }
 
         .hero-orb-1 {
@@ -210,7 +165,7 @@
             background: radial-gradient(circle, #4ade80, #16A34A);
             top: -10%;
             left: -10%;
-            animation-delay: 0s;
+            animation: float-orb 25s ease-in-out infinite, pulse-orb 8s ease-in-out infinite;
         }
 
         .hero-orb-2 {
@@ -219,112 +174,258 @@
             background: radial-gradient(circle, #22c55e, #15803d);
             bottom: -5%;
             right: -5%;
-            animation-delay: 7s;
+            animation: float-orb 30s ease-in-out infinite reverse, pulse-orb 10s ease-in-out infinite;
+            animation-delay: 0s, 2s;
         }
 
 
 
         @keyframes float-orb {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: translate(0, 0) scale(1);
             }
-
-            33% {
-                transform: translate(50px, -50px) scale(1.1);
-            }
-
-            66% {
-                transform: translate(-30px, 30px) scale(0.9);
-            }
-        }
-
-        /* Floating Shapes */
-        .floating-shape {
-            position: absolute;
-            border: 2px solid rgba(74, 222, 128, 0.2);
-            animation: float-shape 15s ease-in-out infinite;
-        }
-
-        .shape-1 {
-            width: 100px;
-            height: 100px;
-            border-radius: 20px;
-            top: 15%;
-            left: 10%;
-            animation-delay: 0s;
-            transform: rotate(45deg);
-        }
-
-        .shape-2 {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            top: 60%;
-            left: 15%;
-            animation-delay: 3s;
-        }
-
-        .shape-3 {
-            width: 120px;
-            height: 120px;
-            border-radius: 30px;
-            top: 25%;
-            right: 15%;
-            animation-delay: 6s;
-            transform: rotate(-30deg);
-        }
-
-        .shape-4 {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            bottom: 20%;
-            right: 10%;
-            animation-delay: 9s;
-        }
-
-        .shape-5 {
-            width: 90px;
-            height: 90px;
-            border-radius: 15px;
-            top: 70%;
-            right: 25%;
-            animation-delay: 12s;
-            transform: rotate(60deg);
-        }
-
-        .shape-6 {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            top: 40%;
-            left: 5%;
-            animation-delay: 15s;
-        }
-
-        @keyframes float-shape {
-
-            0%,
-            100% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0.3;
-            }
-
             25% {
-                transform: translateY(-30px) rotate(90deg);
-                opacity: 0.5;
+                transform: translate(30px, -40px) scale(1.05);
             }
-
             50% {
-                transform: translateY(-60px) rotate(180deg);
+                transform: translate(-20px, 20px) scale(0.95);
+            }
+            75% {
+                transform: translate(40px, 30px) scale(1.02);
+            }
+        }
+
+        /* Subtle pulse animation for depth */
+        @keyframes pulse-orb {
+            0%, 100% {
                 opacity: 0.3;
             }
+            50% {
+                opacity: 0.4;
+            }
+        }
 
-            75% {
-                transform: translateY(-30px) rotate(270deg);
-                opacity: 0.5;
+        .hero-orb-1 {
+            animation: float-orb 25s ease-in-out infinite, pulse-orb 8s ease-in-out infinite;
+        }
+
+        .hero-orb-2 {
+            animation: float-orb 30s ease-in-out infinite reverse, pulse-orb 10s ease-in-out infinite;
+            animation-delay: 0s, 2s;
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(74, 222, 128, 0.15);
+            pointer-events: none;
+        }
+
+        .particle-1 {
+            width: 4px;
+            height: 4px;
+            left: 10%;
+            top: 20%;
+            animation: float-particle-1 20s ease-in-out infinite;
+        }
+
+        .particle-2 {
+            width: 6px;
+            height: 6px;
+            left: 25%;
+            top: 60%;
+            animation: float-particle-2 25s ease-in-out infinite;
+            animation-delay: -2s;
+        }
+
+        .particle-3 {
+            width: 3px;
+            height: 3px;
+            left: 45%;
+            top: 15%;
+            animation: float-particle-3 18s ease-in-out infinite;
+            animation-delay: -4s;
+        }
+
+        .particle-4 {
+            width: 5px;
+            height: 5px;
+            left: 60%;
+            top: 70%;
+            animation: float-particle-4 22s ease-in-out infinite;
+            animation-delay: -1s;
+        }
+
+        .particle-5 {
+            width: 4px;
+            height: 4px;
+            left: 75%;
+            top: 30%;
+            animation: float-particle-5 24s ease-in-out infinite;
+            animation-delay: -3s;
+        }
+
+        .particle-6 {
+            width: 3px;
+            height: 3px;
+            left: 85%;
+            top: 55%;
+            animation: float-particle-6 19s ease-in-out infinite;
+            animation-delay: -5s;
+        }
+
+        .particle-7 {
+            width: 5px;
+            height: 5px;
+            left: 15%;
+            top: 80%;
+            animation: float-particle-7 21s ease-in-out infinite;
+            animation-delay: -2.5s;
+        }
+
+        .particle-8 {
+            width: 4px;
+            height: 4px;
+            left: 35%;
+            top: 10%;
+            animation: float-particle-8 23s ease-in-out infinite;
+            animation-delay: -1.5s;
+        }
+
+        .particle-9 {
+            width: 6px;
+            height: 6px;
+            left: 50%;
+            top: 85%;
+            animation: float-particle-9 26s ease-in-out infinite;
+            animation-delay: -4.5s;
+        }
+
+        .particle-10 {
+            width: 3px;
+            height: 3px;
+            left: 70%;
+            top: 5%;
+            animation: float-particle-10 17s ease-in-out infinite;
+            animation-delay: -3.5s;
+        }
+
+        .particle-11 {
+            width: 4px;
+            height: 4px;
+            left: 90%;
+            top: 40%;
+            animation: float-particle-11 20s ease-in-out infinite;
+            animation-delay: -2s;
+        }
+
+        .particle-12 {
+            width: 5px;
+            height: 5px;
+            left: 5%;
+            top: 50%;
+            animation: float-particle-12 22s ease-in-out infinite;
+            animation-delay: -1s;
+        }
+
+        @keyframes float-particle-1 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+            25% { transform: translate(30px, -50px) scale(1.2); opacity: 0.25; }
+            50% { transform: translate(-20px, 40px) scale(0.8); opacity: 0.1; }
+            75% { transform: translate(40px, 30px) scale(1.1); opacity: 0.2; }
+        }
+
+        @keyframes float-particle-2 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+            33% { transform: translate(-40px, 30px) scale(1.3); opacity: 0.25; }
+            66% { transform: translate(25px, -35px) scale(0.7); opacity: 0.1; }
+        }
+
+        @keyframes float-particle-3 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+            25% { transform: translate(20px, 45px) scale(1.1); opacity: 0.2; }
+            50% { transform: translate(-35px, -25px) scale(0.9); opacity: 0.12; }
+            75% { transform: translate(45px, -15px) scale(1.15); opacity: 0.22; }
+        }
+
+        @keyframes float-particle-4 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+            30% { transform: translate(-30px, -40px) scale(1.25); opacity: 0.25; }
+            60% { transform: translate(35px, 25px) scale(0.75); opacity: 0.1; }
+        }
+
+        @keyframes float-particle-5 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+            25% { transform: translate(25px, 50px) scale(1.2); opacity: 0.23; }
+            50% { transform: translate(-40px, -20px) scale(0.85); opacity: 0.12; }
+            75% { transform: translate(30px, -30px) scale(1.1); opacity: 0.2; }
+        }
+
+        @keyframes float-particle-6 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+            40% { transform: translate(-25px, 35px) scale(1.15); opacity: 0.22; }
+            80% { transform: translate(40px, -25px) scale(0.8); opacity: 0.1; }
+        }
+
+        @keyframes float-particle-7 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+            33% { transform: translate(35px, -45px) scale(1.3); opacity: 0.25; }
+            66% { transform: translate(-20px, 30px) scale(0.7); opacity: 0.1; }
+        }
+
+        @keyframes float-particle-8 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+            25% { transform: translate(-30px, 40px) scale(1.1); opacity: 0.2; }
+            50% { transform: translate(45px, -30px) scale(0.9); opacity: 0.12; }
+            75% { transform: translate(-15px, -20px) scale(1.15); opacity: 0.22; }
+        }
+
+        @keyframes float-particle-9 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+            30% { transform: translate(40px, 30px) scale(1.25); opacity: 0.24; }
+            60% { transform: translate(-35px, -40px) scale(0.75); opacity: 0.1; }
+        }
+
+        @keyframes float-particle-10 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+            35% { transform: translate(-25px, -35px) scale(1.2); opacity: 0.23; }
+            70% { transform: translate(30px, 25px) scale(0.8); opacity: 0.11; }
+        }
+
+        @keyframes float-particle-11 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+            25% { transform: translate(20px, 45px) scale(1.1); opacity: 0.2; }
+            50% { transform: translate(-40px, -25px) scale(0.85); opacity: 0.12; }
+            75% { transform: translate(35px, -20px) scale(1.15); opacity: 0.22; }
+        }
+
+        @keyframes float-particle-12 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+            33% { transform: translate(-35px, 40px) scale(1.3); opacity: 0.25; }
+            66% { transform: translate(25px, -30px) scale(0.7); opacity: 0.1; }
+        }
+
+        /* Mobile Background Adjustments */
+        @media (max-width: 768px) {
+            .hero-orb {
+                opacity: 0.15;
+                /* Darker background on mobile */
+                filter: blur(60px);
+            }
+
+            .hero-orb-1 {
+                width: 300px;
+                height: 300px;
+            }
+
+            .hero-orb-2 {
+                width: 250px;
+                height: 250px;
+            }
+
+            .particle {
+                opacity: 0.1;
             }
         }
 
@@ -353,12 +454,8 @@
 
 <body class="antialiased selection:bg-green-500 selection:text-white">
 
-    <!-- Custom Cursor Elements -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
-
     <!-- 3D Background -->
-    <div id="canvas-container"></div>
+    <!-- Removed 3D Canvas -->
 
     <!-- Header -->
     <header id="mainNavbar" class="fixed w-full top-0 z-50 transition-all duration-300 glass-header">
@@ -386,42 +483,45 @@
 
     <main>
         <!-- Hero Section -->
-        <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden">
             <!-- Animated Background Elements -->
             <div class="absolute inset-0 overflow-hidden">
                 <!-- Gradient Orbs -->
                 <div class="hero-orb hero-orb-1"></div>
                 <div class="hero-orb hero-orb-2"></div>
-
-
-                <!-- Floating Shapes -->
-                <div class="floating-shape shape-1"></div>
-                <div class="floating-shape shape-2"></div>
-                <div class="floating-shape shape-3"></div>
-                <div class="floating-shape shape-4"></div>
-                <div class="floating-shape shape-5"></div>
-                <div class="floating-shape shape-6"></div>
+                
+                <!-- Floating Particles -->
+                <div class="particle particle-1"></div>
+                <div class="particle particle-2"></div>
+                <div class="particle particle-3"></div>
+                <div class="particle particle-4"></div>
+                <div class="particle particle-5"></div>
+                <div class="particle particle-6"></div>
+                <div class="particle particle-7"></div>
+                <div class="particle particle-8"></div>
+                <div class="particle particle-9"></div>
+                <div class="particle particle-10"></div>
+                <div class="particle particle-11"></div>
+                <div class="particle particle-12"></div>
             </div>
 
             <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 class="gsap-hero-anim text-5xl sm:text-6xl md:text-8xl font-bold tracking-tight mb-4">
-                    Hire <span class="text-gradient-green">skills</span> on demand
-                </h1>
+
 
                 <h2
-                    class="gsap-hero-anim text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight mb-8 text-gray-300">
+                    class="gsap-hero-anim text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight mb-6 text-gray-300">
                     India's freelance platform<br />
                     <span class="text-gradient-green">No commissions. No paid connects.</span>
                 </h2>
 
                 <p
-                    class="gsap-hero-anim text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+                    class="gsap-hero-anim text-base md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed px-4">
                     A freelancing platform made for India. Connecting verified Indian freelancers with global clientele.
                 </p>
 
                 <div class="gsap-hero-anim flex flex-col sm:flex-row gap-4 justify-center items-center">
                     <a href="#waitlist"
-                        class="hoverable group relative inline-flex items-center justify-center px-10 py-5 text-lg font-bold text-black transition-all duration-300 bg-green-400 font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/50">
+                        class="hoverable group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black transition-all duration-300 bg-green-400 font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/50">
                         Join Waitlist
                         <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -435,7 +535,7 @@
                 </div>
 
                 <!-- Mobile Build with us button -->
-                <div class="gsap-hero-anim mt-8 md:hidden">
+                <div class="gsap-hero-anim mt-12 md:hidden">
                     <a href="https://www.linkedin.com/company/skillbazaar" target="_blank"
                         class="hoverable inline-flex items-center space-x-2 border border-white/20 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-white/10 transition-all">
                         <span>Build with us</span>
@@ -501,7 +601,7 @@
                         <p class="text-gray-400">Be the first to try Skill Bazaar and get early access.</p>
                     </div>
 
-                    <form id="waitlistForm" class="space-y-6" onsubmit="return false;">
+                    <form id="waitlistForm" class="space-y-6">
                         <!-- Full Name -->
                         <div class="space-y-2">
                             <input type="text" name="fullName" placeholder="Full Name*"
@@ -540,9 +640,13 @@
                         </div>
 
                         <!-- Submit Button -->
-                        <button type="submit"
-                            class="hoverable w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-green-400 transition-colors duration-300 shadow-lg shadow-green-500/20">
-                            Join Now
+                        <button type="submit" id="submitBtn"
+                            class="hoverable w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-green-400 transition-colors duration-300 shadow-lg shadow-green-500/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                            <span id="submitBtnText">Join Now</span>
+                            <svg id="submitLoader" class="hidden animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
                         </button>
                         <div id="formStatus" class="text-center text-sm mt-4"></div>
                     </form>
@@ -557,41 +661,11 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.29/dist/lenis.min.js"></script>
 
     <script>
-        // --- Custom Cursor ---
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
-        const hoverables = document.querySelectorAll('.hoverable');
-
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            // Dot follows immediately
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-
-            // Outline follows with slight delay (handled by CSS transition or JS animation)
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
-        });
-
-        hoverables.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorOutline.classList.add('hovered');
-            });
-            el.addEventListener('mouseleave', () => {
-                cursorOutline.classList.remove('hovered');
-            });
-        });
-
         // --- Header Scroll Effect ---
         const header = document.getElementById('mainNavbar');
 
@@ -605,7 +679,7 @@
 
         // --- Smooth Scroll (Lenis) ---
         let lenis;
-        
+
         // Wait for Lenis to load
         function initLenis() {
             if (typeof Lenis !== 'undefined') {
@@ -648,99 +722,30 @@
                 setTimeout(initLenis, 100);
             }
         }
-        
+
         // Start initialization
         initLenis();
 
-        // --- Three.js Background ---
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-        // Particles
-        const geometry = new THREE.BufferGeometry();
-        const particlesCount = 700;
-        const posArray = new Float32Array(particlesCount * 3);
+        // --- Minimal Interactive Background ---
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 30;
+            const y = (e.clientY / window.innerHeight - 0.5) * 30;
 
-        for (let i = 0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 15; // Spread
-        }
+            gsap.to(".hero-orb-1", {
+                x: x,
+                y: y,
+                duration: 2,
+                ease: "power2.out"
+            });
 
-        geometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-        const material = new THREE.PointsMaterial({
-            size: 0.02,
-            color: 0x4ade80, // Green-400
-            transparent: true,
-            opacity: 0.8,
-        });
-
-        const particlesMesh = new THREE.Points(geometry, material);
-        scene.add(particlesMesh);
-
-        // Connecting Lines (optional, can be heavy)
-        // For better performance, let's stick to floating particles or a mesh
-
-        // Alternative: Geometric Mesh
-        const torusGeometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
-        const torusMaterial = new THREE.MeshBasicMaterial({
-            color: 0x16A34A,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.05
-        });
-        const torus = new THREE.Mesh(torusGeometry, torusMaterial);
-        scene.add(torus);
-
-        camera.position.z = 3;
-
-        // Mouse interaction
-        let mouseX = 0;
-        let mouseY = 0;
-
-        document.addEventListener('mousemove', (event) => {
-            mouseX = event.clientX / window.innerWidth - 0.5;
-            mouseY = event.clientY / window.innerHeight - 0.5;
-        });
-
-        // Animation Loop
-        const clock = new THREE.Clock();
-
-        function animate() {
-            const elapsedTime = clock.getElapsedTime();
-
-            // Animate individual particles to float
-            const positions = particlesMesh.geometry.attributes.position.array;
-            for (let i = 0; i < particlesCount; i++) {
-                const i3 = i * 3;
-                // Create wave-like floating motion for each particle
-                positions[i3 + 1] = Math.sin(elapsedTime + positions[i3]) * 0.5;
-            }
-            particlesMesh.geometry.attributes.position.needsUpdate = true;
-
-            // Rotate particles
-            particlesMesh.rotation.y = elapsedTime * 0.05;
-            particlesMesh.rotation.x = mouseY * 0.5;
-            particlesMesh.rotation.y += mouseX * 0.5;
-
-            // Rotate Torus
-            torus.rotation.x = elapsedTime * 0.1;
-            torus.rotation.y = elapsedTime * 0.1 + mouseX;
-
-            renderer.render(scene, camera);
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-
-        // Resize handler
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+            gsap.to(".hero-orb-2", {
+                x: -x * 1.5, // Move in opposite direction
+                y: -y * 1.5,
+                duration: 2.5,
+                ease: "power2.out"
+            });
         });
 
         // --- GSAP Animations ---
@@ -802,35 +807,18 @@
             }
         });
 
-        gsap.utils.toArray(".floating-shape").forEach((shape, i) => {
-            const speed = (i + 1) * 20; // Different speed for each shape
-            gsap.to(shape, {
-                y: -speed,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "body",
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: 1
-                }
-            });
-        });
+
 
         // --- Form Logic ---
-        (function() {
+        (function () {
             const waitlistForm = document.getElementById('waitlistForm');
-            
+
             if (!waitlistForm) {
                 console.error('Waitlist form not found');
                 return;
             }
 
-            // Prevent default form submission immediately
-            waitlistForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            }, true); // Use capture phase to catch early
+            // Form submission will be handled by submitWaitlist function
 
             const nameInput = waitlistForm.querySelector('input[name="fullName"]');
             const emailInput = waitlistForm.querySelector('input[name="email"]');
@@ -876,7 +864,7 @@
                 event.stopPropagation();
                 event.stopImmediatePropagation();
                 console.log('Form submitted');
-                
+
                 const form = event.target;
                 const formStatus = document.getElementById('formStatus');
                 const submitButton = form.querySelector('button[type="submit"]');
@@ -916,10 +904,18 @@
                     return false;
                 }
 
-                const originalBtnText = submitButton ? submitButton.innerText : 'Join Now';
+                const submitBtnText = document.getElementById('submitBtnText');
+                const submitLoader = document.getElementById('submitLoader');
+                const originalBtnText = submitBtnText ? submitBtnText.innerText : 'Join Now';
+                
                 if (submitButton) {
                     submitButton.disabled = true;
-                    submitButton.innerText = 'Submitting...';
+                }
+                if (submitBtnText) {
+                    submitBtnText.innerText = 'Submitting...';
+                }
+                if (submitLoader) {
+                    submitLoader.classList.remove('hidden');
                 }
                 if (formStatus) {
                     formStatus.innerHTML = '';
@@ -962,7 +958,12 @@
                 } finally {
                     if (submitButton) {
                         submitButton.disabled = false;
-                        submitButton.innerText = originalBtnText;
+                    }
+                    if (submitBtnText) {
+                        submitBtnText.innerText = originalBtnText;
+                    }
+                    if (submitLoader) {
+                        submitLoader.classList.add('hidden');
                     }
                 }
             }
